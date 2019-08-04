@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container sections" style="margin-bottom: 20px;">
+    <div class="row">
+      <div class="col-md-12">
+          <h1>Item Catalog App</h1>
+          <p> All categories with the latest items
+          </p>
+      </div>
+    </div>
+    {% if 'username' in session %}
+    <div class="row">
+      <div class="col-md-12">
+        <a href="{{ url_for('new_category') }}"><button class="btn btn-outline-secondary"><i class="fas fa-plus text-and-icon"></i>New Category</button></a>
+        <a href="{{ url_for('new_item') }}"><button class="btn btn-outline-secondary" style="margin-left: 10px;"><i class="fas fa-plus text-and-icon"></i>New Item</button></a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="container sections">
+            <div class="row" >
+              <div class="col-md-3 shadow" style="background-color:white; padding-top: 15px;">
+                <h2>Category</h2>
+                {% for category in categories %}
+                  <a href="{{ url_for('get_category_items', category_id=category.id) }}"><p>{{ category.name }}</p></a>
+                {% endfor %}
+              </div>
+
+              <div  class="col-md-1" ></div>
+
+              <div class="col-md-8 shadow" style="background-color:white; padding-top: 8px;">
+                <h2>Latest Items</h2>
+                {% for i in items_with_category %}
+                  <p><a href="{{ url_for('view_item', item_id=i[0].id) }}">{{ i[0].name }} </a>({{ i[1].name }})</>
+
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+</div>
+{% endblock %}

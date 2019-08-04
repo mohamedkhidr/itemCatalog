@@ -1,0 +1,33 @@
+# Item catalog App
+
+
+#### About
+our app is a catalog that contain a list of categories each category contain a list of items 
+you can read , write ,  delete and update elemnts in the catalog by creating an account using google service.
+
+
+#### Features 
+
+- you can perform CRUD operations 
+- authentication and authorization service
+- you can create an account with your gmail
+- we provide an API to show all the catalog content
+
+### Before runnig 
+
+#### requirments : 
+
+1. install Vagrant
+2. install Virtualbox
+3. download the Vagrant VM from udacity 
+4. go to the vagrant file
+5. open the terminal 
+6. type   ```vagrant up``` and ubuntu will be downloaded
+7. then type   ```vagrant ssh``` to connect to the vm and    ```cd /vagrant ```
+8.  download or clone this repo 
+9. run  ```python3 database_setup.py ``` to create the database
+10. run  ```python3 fill_db.py ```  to fill the db then run the app   ```python3 app.py ``` 
+11. run the browser at ``` http://localhost:5000/``` and explore
+
+
+Author : mohamed khidr

@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block head %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer> </script>
+<script>
+  function start() {
+    gapi.load('auth2', function() {
+      auth2 = gapi.auth2.init({
+        client_id: '{{client_id}}'
+      });
+    });
+  }
+</script>
+{% endblock %}
+{% block content %}
+
+<!-- GOOGLE SIGN IN-->
+<div class=" shadow-lg col-md-3 d-flex justify-content-center align-items-center Card">
+<div class="  justify-content-center align-items-center ">
+ <p> Use your google account to sign up or login  </p>
+
+        <button id="signinButton" class="shadow btn btn-light"><img width="20px"
+             alt="Google &quot;G&quot; Logo"
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/> Google Signin</button>
+
+
+</div>
+
+
+  </div>
+      <div id="result"></div>
+
+
+<script>
+  $('#signinButton').click(function() {
+    function signInCallback(authResult){
+      if (authResult['code']){
+        $('#signinButton').attr('style', 'display: none');
+        $.ajax({
+          type: 'POST',
+          url: '/gconnect?state={{STATE}}',
+          headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+          },
+          contentType: 'application/octet-stream; charset=utf-8',
+          success:function(result){
+            $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+                 setTimeout(function() {
+                  window.location.href = "/";
+                 }, 2000);
+          },
+          processData:false,
+          data:authResult['code']
+        });
+      } else{
+        // handle error
+        console.log('There was an error: ' + authResult['error']);
+        $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+      }
+    }
+    auth2.grantOfflineAccess().then(signInCallback);
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+.Card {
+
+        min-height: 400px;
+        margin: 0 auto; /* Added */
+        float: none; /* Added */
+        margin-bottom: 10px; /* Added */
+        background-color : #FFF;
+        margin-top: 60px;
+
+}
+
